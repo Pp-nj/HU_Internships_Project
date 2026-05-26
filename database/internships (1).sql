@@ -90,7 +90,6 @@ CREATE TABLE IF NOT EXISTS `student` (
   `major` VARCHAR(100) DEFAULT NULL COMMENT 'สาขาวิชา',
   `advisor_id` INT DEFAULT NULL COMMENT 'รหัสอาจารย์ที่ปรึกษา',
   `gpa` DECIMAL(3,2) DEFAULT NULL COMMENT 'เกรดเฉลี่ยสะสม',
-  `enrollment_date` DATE DEFAULT NULL COMMENT 'วันที่เข้าศึกษา',
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'วันที่สร้างข้อมูล',
   PRIMARY KEY (`student_id`),
   FOREIGN KEY (`advisor_id`) REFERENCES `teacher`(`teacher_id`) ON DELETE SET NULL

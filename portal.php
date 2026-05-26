@@ -64,6 +64,30 @@ $page_title = 'Portal';
         font-size: 24px;
         box-shadow: 0 4px 10px rgba(255, 193, 7, 0.4);
     }
+    .bg-p1{
+    background:#3D0000;
+    }
+    .bg-p2{
+        background:#950101;
+    } 
+    .bg-p3{
+        background:#e3000f;
+    } 
+    .bg-p4{
+        background:#1a2232;
+    }
+    .bg-p5{
+        background:#7b848c;
+    }
+    .text-p1{
+        color:#9b111e;
+    } 
+    .text-p2{
+        color:#e3000f;
+    } 
+    .text-p3{
+        color:#1a2232;
+    }
     </style>
 </head>
 <!-- จบส่วน style -->
@@ -102,7 +126,7 @@ $page_title = 'Portal';
             </div>
             <!-- กล่องนิสิต -->
             <div class="row g-4 justify-content-center mb-5">
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg col-md-4">
                     <a href="login/login_student.php" class="portal-card bg-p1">
                         <div class="portal-icon">
                             <i class="fas fa-user-graduate"> </i>
@@ -116,7 +140,7 @@ $page_title = 'Portal';
                     </a>
                 </div>
                 <!-- กล่องอาจารย์ -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg col-md-4">
                     <a href="login/login_teacher.php" class="portal-card bg-p2">
                         <div class="portal-icon">
                             <i class="fas fa-chalkboard-teacher"> </i>
@@ -130,7 +154,7 @@ $page_title = 'Portal';
                     </a>
                 </div>
                 <!-- กล่องเจ้าหน้าที่คณะ -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg col-md-4">
                     <a href="login/login_staff.php" class="portal-card bg-p3">
                         <div class="portal-icon">
                             <i class="fas fa-file-signature"></i>
@@ -144,7 +168,7 @@ $page_title = 'Portal';
                     </a>
                 </div>
                 <!-- กล่องคู่มือการใช้งาน -->
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg col-md-4">
                     <a href="flowchart.php" class="portal-card bg-p4">
                         <div class="portal-icon">
                             <i class="fas fa-book-open"></i>
@@ -152,6 +176,20 @@ $page_title = 'Portal';
                         <h3>Manual</h3>
                         <h4>คู่มือการใช้งาน</h4>
                         <p>ขั้นตอนการดําเนินงาน<br>และระเบียบการ</p>
+                        <div class="portal-arrow">
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+                <!-- กล่องคู่มือการใช้งาน -->
+                <div class="col-lg col-md-4">
+                    <a href="internship_test.php" class="portal-card bg-p5">
+                        <div class="portal-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3>Internship Test</h3>
+                        <h4>แบบประเมินวัดทักษะ</h4>
+                        <p>แบบประเมิน<br>ความพร้อมก่อนฝึกงาน</p>
                         <div class="portal-arrow">
                             <i class="fas fa-arrow-right"></i>
                         </div>

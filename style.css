@@ -407,27 +407,7 @@ body { font-family: 'Kanit', sans-serif; overflow-x: hidden; background: #fafafa
     border-left: none; 
     font-size: 14px; 
 }
-.bg-p1{
-    background:#9b111e;
-}
-.bg-p2{
-    background:#e3000f;
-} 
-.bg-p3{
-    background:#1a2232;
-} 
-.bg-p4{
-    background:#7b848c;
-}
-.text-p1{
-    color:#9b111e;
-} 
-.text-p2{
-    color:#e3000f;
-} 
-.text-p3{
-    color:#1a2232;
-}
+
 
 
 

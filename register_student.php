@@ -327,7 +327,7 @@ if ($res) {
                     <label class="reg-label">เกรดเฉลี่ยสะสม (GPA)</label>
                     <div class="custom-input">
                         <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
-                        <input type="number" step="0.01" min="0" max="4" name="gpa" class="form-control" value="<?= h($old['gpa']) ?>" placeholder="เช่น 3.50">
+                        <input type="number" step="0.01" min="0" max="4" name="gpa" class="form-control" value="<?= h($old['gpa']) ?>" placeholder="เช่น 3.50 (หากไม่ทราบใส่ 0)">
                     </div>
                 </div>
                 <div class="col-md-6">
