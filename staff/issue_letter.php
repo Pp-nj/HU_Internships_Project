@@ -66,7 +66,96 @@ $ready = $conn->query(
 $page_title = 'ออกใบส่งตัว';
 require '../includes/header.php';
 ?>
+<style>
+@media print {
+    /* 1. ซ่อนทุกอย่างที่ไม่ได้ใช้ (ปุ่ม, เมนู, หัวการ์ด, ตาราง) */
+    header, nav, .sidebar, footer, h1, .alert, .card-table, 
+    .card-header, form, .actions, .muted, button {
+        display: none !important;
+    }
 
+    /* 2. ทลายกรอบ! ล้างพื้นหลัง ลบขอบ ลบเงา และคลายความกว้างให้เต็ม 100% */
+    body, html, .main-content {
+        background: #fff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .card, .card-form {
+        border: none !important;          /* เอาเส้นขอบออก */
+        box-shadow: none !important;      /* เอาเงาออก */
+        background: transparent !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;       /* บังคับกว้างเต็มจอ */
+        width: 100% !important;           /* บังคับกว้างเต็มจอ */
+    }
+
+    /* 3. ตั้งค่ากระดาษ A4 และระยะขอบให้เหมือนหนังสือราชการ */
+    @page {
+        size: A4;
+        margin: 2.5cm 2cm 2.5cm 2.5cm !important; /* บน ขวา ล่าง ซ้าย */
+    }
+
+    /* 4. จัดรูปแบบเนื้อหาจดหมายให้เต็มพื้นที่ ไม่มีกรอบ */
+    .letter {
+        display: block !important;
+        width: 100% !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: 'TH Sarabun New', 'TH Sarabun PSK', sans-serif !important;
+        font-size: 16pt !important;
+        line-height: 1.3 !important;
+        color: #000 !important;
+    }
+
+    /* 5. จัดโลโก้ */
+    .logo-header {
+        text-align: center !important;
+        margin-bottom: 20px !important;
+        border: none !important;
+    }
+    .logo-header img {
+        height: 90px !important;
+        width: auto !important;
+        border: none !important;
+    }
+
+    /* 6. หัวเรื่อง (บังคับสีดำ เผื่อในเว็บมันติดสีแดงมา) */
+    .letter h3 {
+        text-align: center !important;
+        font-size: 20pt !important;
+        font-weight: bold !important;
+        color: #000 !important; 
+        margin-top: 0 !important;
+        margin-bottom: 30px !important;
+    }
+
+    /* 7. ย่อหน้า (กระจายคำให้ชิดขอบซ้าย-ขวาเท่ากัน) */
+    .letter p {
+        text-align: justify !important;
+        margin-bottom: 15px !important;
+        color: #000 !important;
+    }
+    
+    /* บังคับเยื้องบรรทัดเฉพาะย่อหน้าที่ 2 และ 3 (เนื้อหาจดหมาย) */
+    .letter p:nth-of-type(2),
+    .letter p:nth-of-type(3) {
+        text-indent: 2.5cm !important;
+    }
+
+    /* 8. ลายเซ็น (ดันไปขวา) */
+    .letter .right {
+        display: block !important;
+        float: right !important;
+        width: 45% !important;
+        text-align: center !important;
+        margin-top: 40px !important;
+        text-indent: 0 !important;
+    }
+}
+</style>
 <!-- เริ่ม ออกใบส่งตัว -->
 <h1>
   <i class="fas fa-envelope-open-text me-2" style="color:var(--swu-red); margin-right: 10px;"></i>ออกใบส่งตัวฝึกงาน
@@ -135,7 +224,11 @@ require '../includes/header.php';
         <span class="badge <?= h($cls) ?>"><?= h($lbl) ?></span>
     </div>
     <div class="letter">
-        <h3>ใบส่งตัวนิสิตฝึกงาน</h3>
+    <div class="logo-header" style="text-align: center; margin-bottom: 20px; border: none; background: transparent;">
+        <img src="../img/swu_Logo.png" alt="SWU Logo" style="height: 90px; width: auto; border: none; box-shadow: none;">
+    </div>
+
+    <h3 style="color: #000;">ใบส่งตัวนิสิตฝึกงาน</h3>
         <p>เรียน ผู้จัดการฝ่ายทรัพยากรบุคคล
           <br><strong><?= h($preview['company_name']) ?></strong><br>
             <?= h($preview['company_address']) ?> <?= h($preview['province']) ?>

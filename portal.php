@@ -157,7 +157,7 @@ $page_title = 'Portal';
                 <div class="col-lg col-md-4">
                     <a href="login/login_staff.php" class="portal-card bg-p3">
                         <div class="portal-icon">
-                            <i class="fas fa-file-signature"></i>
+                            <i class="fa-solid fa-user-shield"></i>
                         </div>
                         <h3>เจ้าหน้าที่คณะ</h3>
                         <h4>Staff Portal</h4>
@@ -185,7 +185,7 @@ $page_title = 'Portal';
                 <div class="col-lg col-md-4">
                     <a href="internship_test.php" class="portal-card bg-p5">
                         <div class="portal-icon">
-                            <i class="fas fa-book-open"></i>
+                            <i class="fa-solid fa-file-pen"></i>
                         </div>
                         <h3>Internship Test</h3>
                         <h4>แบบประเมินวัดทักษะ</h4>

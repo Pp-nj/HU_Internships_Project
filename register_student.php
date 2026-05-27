@@ -47,16 +47,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $adv  = $old['advisor_id'] !== '' ? (int)$old['advisor_id'] : null;
         
         $stmt = $conn->prepare(
-            'INSERT INTO student (student_code, password, first_name, last_name, email, phone, faculty, major, gpa, advisor_id)
-             VALUES (?,?,?,?,?,?,?,?,?,?)'
-        );
-        if ($stmt) {
-            $stmt->bind_param(
-                'ssssssssdi',
-                $old['student_code'], $hash, $old['first_name'], $old['last_name'],
-                $old['email'], $old['phone'], $old['faculty'], $old['major'],
-                $gpa, $adv
-            );
+    "INSERT INTO student (student_code, password, first_name, last_name, email, phone, faculty, major, program_type, year_level, gpa, advisor_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+);
+
+if ($stmt) {
+    // 2. ปรับ type และเพิ่มตัวแปรให้ครบ 12 ตัว
+    // s = string, i = integer, d = double (สำหรับทศนิยม)
+    $stmt->bind_param(
+        'sssssssssidi', 
+        $old['student_code'], 
+        $hash, 
+        $old['first_name'], 
+        $old['last_name'], 
+        $old['email'], 
+        $old['phone'], 
+        $old['faculty'], 
+        $old['major'], 
+        $old['program_type'], // <-- ตัวแปรที่หายไป
+        $old['year_level'],   // <-- ตัวแปรที่หายไป
+        $gpa, 
+        $adv
+    );
             if ($stmt->execute()) {
                 $msg = 'สมัครสมาชิกสำเร็จ! ใช้รหัสนิสิต ' . h($old['student_code']) . ' เข้าสู่ระบบได้ทันที';
                 $old = array_fill_keys(array_keys($old), ''); // ล้างฟอร์ม

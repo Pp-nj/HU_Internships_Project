@@ -23,6 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $phone = trim($_POST['phone'] ?? '');
         $faculty = trim($_POST['faculty'] ?? '');
         $major = trim($_POST['major'] ?? '');
+        
+        // เพิ่มตัวแปรใหม่ 2 ตัวให้ตรงกับ DB
+        $program_type = trim($_POST['program_type'] ?? ''); 
+        $year_level = $_POST['year_level'] !== '' ? (int)$_POST['year_level'] : null; 
+        
         $gpa = trim($_POST['gpa'] ?? '');
         $advisor_id = (int)($_POST['advisor_id'] ?? 0);
         $password = trim($_POST['password'] ?? '');
@@ -31,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$fname || !$lname) $errors[] = 'กรุณากรอกชื่อ-นามสกุล';
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[] = 'อีเมลไม่ถูกต้อง';
         if ($gpa && !is_numeric($gpa)) $errors[] = 'GPA ไม่ถูกต้อง';
-
+        
         if ($action === 'add') {
             if (!$password || strlen($password) < 6) $errors[] = 'รหัสผ่านต้องอย่างน้อย 6 ตัวอักษร';
             if (!$errors) {
@@ -44,12 +49,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if (!$errors) {
+            $gpa_val = $gpa ? (float)$gpa : null;
+            $adv_val = $advisor_id ?: null;
+
             if ($action === 'add') {
                 $hash = password_hash($password, PASSWORD_DEFAULT);
-                $gpa_val = $gpa ? (float)$gpa : null;
-                $adv_val = $advisor_id ?: null;
-                $stmt = $conn->prepare('INSERT INTO student (student_code, password, first_name, last_name, email, phone, faculty, major, gpa, advisor_id) VALUES (?,?,?,?,?,?,?,?,?,?)');
-                $stmt->bind_param('ssssssdisi', $fname, $lname, $email, $phone, $faculty, $major, $gpa_val, $adv_val, $hash, $id);
+                
+                // แก้ไข: เพิ่มคอลัมน์และแก้บั๊กลำดับตัวแปร bind_param เดิมที่ผิด
+                $stmt = $conn->prepare('INSERT INTO student (student_code, password, first_name, last_name, email, phone, faculty, major, program_type, year_level, gpa, advisor_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
+                $stmt->bind_param('sssssssssidi', $code, $hash, $fname, $lname, $email, $phone, $faculty, $major, $program_type, $year_level, $gpa_val, $adv_val);
+                
                 if ($stmt->execute()) {
                     $msg = 'เพิ่มนิสิตสำเร็จ';
                     $action = 'list';
@@ -58,16 +67,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
                 $stmt->close();
             } else {
-                $gpa_val = $gpa ? (float)$gpa : null;
-                $adv_val = $advisor_id ?: null;
                 if ($password) {
                     $hash = password_hash($password, PASSWORD_DEFAULT);
-                    $stmt = $conn->prepare('UPDATE student SET first_name=?, last_name=?, email=?, phone=?, faculty=?, major=?, gpa=?, advisor_id=?, password=? WHERE student_id=?');
-                    $stmt->bind_param('ssssssssi', $fname, $lname, $email, $phone, $faculty, $major, $gpa_val, $adv_val, $hash, $id);
+                    $stmt = $conn->prepare('UPDATE student SET first_name=?, last_name=?, email=?, phone=?, faculty=?, major=?, program_type=?, year_level=?, gpa=?, advisor_id=?, password=? WHERE student_id=?');
+                    $stmt->bind_param('sssssssidisi', $fname, $lname, $email, $phone, $faculty, $major, $program_type, $year_level, $gpa_val, $adv_val, $hash, $id);
                 } else {
-                    $stmt = $conn->prepare('UPDATE student SET first_name=?, last_name=?, email=?, phone=?, faculty=?, major=?, gpa=?, advisor_id=? WHERE student_id=?');
-                    $stmt->bind_param('ssssssdii', $fname, $lname, $email, $phone, $faculty, $major, $gpa_val, $adv_val, $id);
+                    $stmt = $conn->prepare('UPDATE student SET first_name=?, last_name=?, email=?, phone=?, faculty=?, major=?, program_type=?, year_level=?, gpa=?, advisor_id=? WHERE student_id=?');
+                    $stmt->bind_param('sssssssidii', $fname, $lname, $email, $phone, $faculty, $major, $program_type, $year_level, $gpa_val, $adv_val, $id);
                 }
+                
                 if ($stmt->execute()) {
                     $msg = 'แก้ไขนิสิตสำเร็จ';
                     $action = 'list';
@@ -213,14 +221,33 @@ if ($action === 'list') {
             </label>
         </div>
 
-        <div class="row">
+       <div class="row">
             <label>คณะ
                 <input type="text" name="faculty" value="<?= $student ? h($student['faculty']) : '' ?>"
-                    placeholder="เช่น วิทยาศาสตร์">
+                    placeholder="เช่น มนุษยศาสตร์">
             </label>
             <label>สาขา
                 <input type="text" name="major" value="<?= $student ? h($student['major']) : '' ?>"
-                    placeholder="เช่น วิทยาการคอมพิวเตอร์">
+                    placeholder="เช่น สารสนเทศศึกษา">
+            </label>
+        </div>
+
+        <div class="row">
+            <label>ภาคการศึกษา
+                <select name="program_type">
+                    <option value="">เลือกภาคการศึกษา</option>
+                    <option value="ภาคปกติ" <?= ($student && $student['program_type'] === 'ภาคปกติ') ? 'selected' : '' ?>>ภาคปกติ</option>
+                    <option value="ภาคพิเศษ" <?= ($student && $student['program_type'] === 'ภาคพิเศษ') ? 'selected' : '' ?>>ภาคพิเศษ</option>
+                </select>
+            </label>
+            <label>ชั้นปี
+                <select name="year_level">
+                    <option value="">เลือกชั้นปี</option>
+                    <option value="1" <?= ($student && $student['year_level'] == 1) ? 'selected' : '' ?>>ชั้นปีที่ 1</option>
+                    <option value="2" <?= ($student && $student['year_level'] == 2) ? 'selected' : '' ?>>ชั้นปีที่ 2</option>
+                    <option value="3" <?= ($student && $student['year_level'] == 3) ? 'selected' : '' ?>>ชั้นปีที่ 3</option>
+                    <option value="4" <?= ($student && $student['year_level'] == 4) ? 'selected' : '' ?>>ชั้นปีที่ 4</option>
+                </select>
             </label>
         </div>
         <!-- จบ ส่วนการเพิ่มหรือแก้ไขนิสิต -->

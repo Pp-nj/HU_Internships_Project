@@ -61,21 +61,18 @@ CREATE TABLE IF NOT EXISTS `faculty_staff` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='ข้อมูลเจ้าหน้าที่คณะ';
 
 -- 2.2 ข้อมูลอาจารย์
-CREATE TABLE IF NOT EXISTS `teacher` (
-  `teacher_id` INT NOT NULL AUTO_INCREMENT COMMENT 'รหัสอาจารย์',
-  `username` VARCHAR(50) NOT NULL UNIQUE COMMENT 'ชื่อผู้ใช้งาน',
+CREATE TABLE `teacher` (
+  `teacher_id` INT NOT NULL AUTO_INCREMENT COMMENT 'รหัสลำดับอาจารย์ในระบบ (PK)',
+  `username` VARCHAR(50) NOT NULL UNIQUE COMMENT 'ชื่อผู้ใช้ / Username',
   `password` VARCHAR(255) NOT NULL COMMENT 'รหัสผ่าน (Hashed)',
-  `first_name` VARCHAR(100) NOT NULL COMMENT 'ชื่อจริง',
-  `last_name` VARCHAR(100) NOT NULL COMMENT 'นามสกุล',
-  `department` VARCHAR(100) DEFAULT NULL COMMENT 'ภาควิชา',
-  `email` VARCHAR(150) NOT NULL COMMENT 'อีเมล',
-  `phone` VARCHAR(15) DEFAULT NULL COMMENT 'เบอร์ติดต่อ',
-  `academic_position` VARCHAR(100) DEFAULT NULL COMMENT 'ตำแหน่งทางวิชาการ',
-  `expertise` TEXT COMMENT 'ความเชี่ยวชาญ',
-  `profile_image` VARCHAR(255) DEFAULT NULL COMMENT 'รูปโปรไฟล์',
+  `first_name` VARCHAR(100) NOT NULL COMMENT 'ชื่อจริง (First Name)',
+  `last_name` VARCHAR(100) NOT NULL COMMENT 'นามสกุล (Last Name)',
+  `email` VARCHAR(150) NOT NULL COMMENT 'อีเมล (E-Mail)',
+  `phone` VARCHAR(15) DEFAULT NULL COMMENT 'เบอร์โทรศัพท์ (Phone)',
+  `department` VARCHAR(100) DEFAULT NULL COMMENT 'สาขา/แผนก (Department)',
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT 'วันที่สร้างข้อมูล',
   PRIMARY KEY (`teacher_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='ข้อมูลอาจารย์';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='ข้อมูลบัญชีอาจารย์และที่ปรึกษา';
 
 -- 2.3 ข้อมูลนิสิต
 CREATE TABLE IF NOT EXISTS `student` (

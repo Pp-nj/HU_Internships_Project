@@ -177,14 +177,6 @@
                             <span class="email-text-main">is@g.swu.ac.th</span>
                         </div>
                     </a>
-                    <div class="mt-2">
-                        <ul class="footer-list ">
-                            <a href="developers.php" class="developer-link fw-bold"
-                                style="color: white; text-decoration: none; font-size: 16px; transition: all 0.3s ease;">
-                                <i class="fas fa-laptop-code me-2"></i>คณะผู้จัดทำ (Developers)
-                            </a>
-                        </ul>
-                    </div>
                 </div>
             </div>
 

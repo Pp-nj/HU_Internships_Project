@@ -196,7 +196,7 @@ elseif ($action === 'add' || $action === 'edit') {
     <form method="POST" class="form" style="padding:24px">
         <label>ชื่อผู้ใช้ *
             <input type="text" name="username" required value="<?= $teacher ? h($teacher['username']) : '' ?>"
-                <?= $action === 'edit' ? 'readonly' : '' ?> placeholder="เช่น teacher_001">
+                <?= $action === 'edit' ? 'readonly' : '' ?> placeholder="เช่น teacher01">
             <small style="color: #666; display: block; margin-top: 4px;">ใช้ในการเข้าสู่ระบบ</small>
         </label>
 

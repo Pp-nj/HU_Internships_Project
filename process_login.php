@@ -24,31 +24,34 @@ $user_row = null;
 $display_name = '';
 // 5. ตรวจสอบบัญชีผู้ใช้: แยกหาข้อมูลในฐานข้อมูลตาม Role ที่เลือกมา
 switch ($role) {
-    // กรณีเป็นนิสิต
-    case 'student':
-        $stmt = $conn->prepare(
-            // แก้ไข: เปลี่ยนจาก faculty, major เป็น program_type, year_level
-            'SELECT student_id, student_code, password, first_name, last_name, advisor_id, program_type, year_level 
-             FROM student WHERE student_code = ? LIMIT 1'
-        );
-        $stmt->bind_param('s', $username);
-        $stmt->execute();
-        $res = $stmt->get_result();
-        $row = $res->fetch_assoc();
-        $stmt->close();
-        
-        if ($row && password_verify($password, $row['password'])) {
-            $user_row = [
-                'id'           => $row['student_id'],
-                'student_id'   => (int)$row['student_id'],
-                'student_code' => $row['student_code'],
-                'advisor_id'   => $row['advisor_id'] !== null ? (int)$row['advisor_id'] : null,
-                'display_name' => $row['first_name'] . ' ' . $row['last_name'],
-                'program_type' => $row['program_type'],
-                'year_level'   => $row['year_level'] !== null ? (int)$row['year_level'] : null,
-            ];
-        }
-        break;
+            // กรณีเป็นนิสิต
+        case 'student':
+            $stmt = $conn->prepare(
+                // ✅ แก้ไข: ดึงคอลัมน์ faculty, major ของเดิมกลับมาใส่คู่กับของใหม่
+                'SELECT student_id, student_code, password, first_name, last_name, advisor_id, faculty, major, program_type, year_level 
+                FROM student WHERE student_code = ? LIMIT 1'
+            );
+            $stmt->bind_param('s', $username);
+            $stmt->execute();
+            $res = $stmt->get_result();
+            $row = $res->fetch_assoc();
+            $stmt->close();
+
+            if ($row && password_verify($password, $row['password'])) {
+                $user_row = [
+                    'id'           => $row['student_id'],
+                    'student_id'   => (int)$row['student_id'],
+                    'student_code' => $row['student_code'],
+                    'advisor_id'   => $row['advisor_id'] !== null ? (int)$row['advisor_id'] : null,
+                    'display_name' => $row['first_name'] . ' ' . $row['last_name'],
+                    // ✅ แก้ไข: กำหนดตัวแปรให้ครบถ้วนเพื่อไม่ให้เกิด Undefined index
+                    'faculty'      => $row['faculty'],
+                    'major'        => $row['major'],
+                    'program_type' => $row['program_type'],
+                    'year_level'   => $row['year_level'] !== null ? (int)$row['year_level'] : null
+                ];
+            }
+            break;
 // กรณีอาจารย์
     case 'teacher':
         $stmt = $conn->prepare(
