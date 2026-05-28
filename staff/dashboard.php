@@ -6,6 +6,23 @@ require_role(['teacher','staff']);
 $role = current_role();
 $user = current_user();
 
+// 🛑 [เพิ่มเข้ามาใหม่] ระบบจัดการการยกเลิกคำขอด่วนจากหน้าแรก (เฉพาะเจ้าหน้าที่ Staff เท่านั้น)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'cancel_request') {
+    if ($role === 'staff') {
+        $cancel_id = (int)$_POST['cancel_id'];
+        
+        // อัปเดตสถานะในฐานข้อมูลเป็น 9 (ยกเลิก/ไม่ผ่าน)
+        $stmt_cancel = $conn->prepare("UPDATE internships_request SET status_id = 9 WHERE request_id = ?");
+        $stmt_cancel->bind_param("i", $cancel_id);
+        $stmt_cancel->execute();
+        $stmt_cancel->close();
+        
+        // รีเฟรชหน้าตัวเองเพื่ออัปเดตสถิติและสถานะล่าสุดทันที
+        header("Location: dashboard.php");
+        exit;
+    }
+}
+
 // 1. เตรียมตัวแปรสำหรับเก็บค่าสถิติ (ค่าเริ่มต้นเป็น 0 ทุกสถานะ)
 $by_status = array_fill_keys([1,2,3,4,9], 0);
 
@@ -119,7 +136,7 @@ require '../includes/header.php';
                   <i class="fas fa-check-circle me-1" style="margin-right: 10px;"></i>ไปอนุมัติคำขอ
                 </a>
                 <a class="btn btn-secondary" href="supervision.php">
-                  <i class="fas fa-clipboard-check me-1" style="margin-right: 10px;"></i>ดูรายการบันทึกนิเทศ
+                    <i class="fas fa-clipboard-check me-1" style="margin-right: 10px;"></i>ดูรายการบันทึกนิเทศ
                 </a>
             <?php else: ?>
                 <a class="btn btn-primary" href="issue_letter.php">
@@ -142,26 +159,40 @@ require '../includes/header.php';
                     <th>นิสิต</th>
                     <th>บริษัท</th>
                     <th>ช่วง</th>
-                    <th>อาจารย์</th> <th>สถานะ</th>
-                    <th></th>
-                </tr>
+                    <th>อาจารย์</th> 
+                    <th>สถานะ</th>
+                    <th>การจัดการ</th> </tr>
             </thead>
             <tbody>
                 <?php foreach ($recent as $r): [$l,$c] = status_label($r['status_id']); ?>
                 <tr>
                     <td>#<?= (int)$r['request_id'] ?></td>
-                    <td><?= h($r['student_code']) ?> <?= h($r['first_name'].' '.$r['last_name']) ?></td>
+                    <td><strong><?= h($r['student_code']) ?></strong><br><?= h($r['first_name'].' '.$r['last_name']) ?></td>
                     <td><?= h($r['company_name']) ?></td>
                     <td><?= h($r['start_date']) ?> → <?= h($r['end_date']) ?></td>
-                    <td><?= h($r['t_fname'].' '.$r['t_lname']) ?></td> <td>
+                    <td><?= (!empty($r['t_fname'])) ? h($r['t_fname'].' '.$r['t_lname']) : '<span class="muted">-</span>' ?></td> 
+                    <td>
                       <span class="badge <?= h($c) ?>"><?= h($l) ?></span>
                     </td>
                     <td>
-                        <?php if ($role === 'teacher'): ?>
-                          <a href="approve_requests.php?id=<?= (int)$r['request_id'] ?>">จัดการ</a>
-                        <?php else: ?>
-                          <a href="issue_letter.php?id=<?= (int)$r['request_id'] ?>">จัดการ</a>
-                        <?php endif; ?>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <?php if ($role === 'teacher'): ?>
+                              <a href="approve_requests.php?id=<?= (int)$r['request_id'] ?>">จัดการ</a>
+                            <?php else: ?>
+                              <a href="issue_letter.php?id=<?= (int)$r['request_id'] ?>">จัดการ</a>
+                              
+                              <?php if ((int)$r['status_id'] !== 9): ?>
+                                  <form method="POST" action="dashboard.php" onsubmit="return confirm('คุณแน่ใจใช่ไหมที่จะยกเลิกคำขอของด่วนนี้? \nข้อมูลจะถูกปรับเป็นสถานะ [ยกเลิก/ไม่ผ่าน] ทันที');" style="margin: 0; display: inline;">
+                                      <input type="hidden" name="action" value="cancel_request">
+                                      <input type="hidden" name="cancel_id" value="<?= (int)$r['request_id'] ?>">
+                                      <button type="submit" style="background: none; border: none; color: #dc3545; cursor: pointer; text-decoration: underline; padding: 0; font-size: inherit; font-family: inherit;">
+                                          ยกเลิก
+                                      </button>
+                                  </form>
+                              <?php endif; ?>
+                              
+                            <?php endif; ?>
+                        </div>
                     </td>
                 </tr>
                 <?php endforeach; ?>
