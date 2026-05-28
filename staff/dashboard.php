@@ -24,13 +24,15 @@ if ($role === 'teacher') {
     $counts = $stmt_count->get_result()->fetch_all(MYSQLI_ASSOC);
     $stmt_count->close();
 
-    // --- ดึงรายการคำขอล่าสุด 20 รายการ ---
+    // --- ดึงรายการคำขอล่าสุด 20 รายการ ของอาจารย์ท่านนี้ (พร้อม JOIN ดึงชื่ออาจารย์) ---
     $stmt = $conn->prepare(
         'SELECT r.request_id, r.start_date, r.end_date, r.status_id, r.position AS position_title,
-                s.first_name, s.last_name, s.student_code, c.company_name
+                s.first_name, s.last_name, s.student_code, c.company_name,
+                t.first_name AS t_fname, t.last_name AS t_lname
          FROM internships_request r
          JOIN student s ON s.student_id = r.student_id
          JOIN company c ON c.company_id = r.company_id
+         LEFT JOIN teacher t ON r.advisor_id = t.teacher_id
          WHERE r.advisor_id = ?
          ORDER BY r.created_at DESC LIMIT 20'
     );
@@ -44,13 +46,15 @@ if ($role === 'teacher') {
          GROUP BY status_id'
     )->fetch_all(MYSQLI_ASSOC);
 
-    // --- ดึงรายการคำขอล่าสุด 20 รายการ ---
+    // --- ดึงรายการคำขอล่าสุด 20 รายการ ทั้งหมดในระบบ (พร้อม JOIN ดึงชื่ออาจารย์) ---
     $stmt = $conn->prepare(
         'SELECT r.request_id, r.start_date, r.end_date, r.status_id, r.position AS position_title,
-                s.first_name, s.last_name, s.student_code, c.company_name
+                s.first_name, s.last_name, s.student_code, c.company_name,
+                t.first_name AS t_fname, t.last_name AS t_lname
          FROM internships_request r
          JOIN student s ON s.student_id = r.student_id
          JOIN company c ON c.company_id = r.company_id
+         LEFT JOIN teacher t ON r.advisor_id = t.teacher_id
          ORDER BY r.created_at DESC LIMIT 20'
     );
 }
@@ -69,7 +73,6 @@ $page_title = 'หน้าหลัก';
 require '../includes/header.php';
 ?>
 
-<!-- ส่วนแสดง หลัง login-->
 <h1>
   <i class="fa-solid fa-address-card me-2" style="color:var(--swu-red)"></i> สวัสดี <?= h($user['display_name']) ?>
 </h1>
@@ -81,7 +84,7 @@ require '../includes/header.php';
         · <?= h($user['position']) ?>
     <?php endif; ?>
 </p>
-<!-- ส่วนแสดงสถานะ -->
+
 <div class="stats">
     <div class="stat-card">
         <div class="num"><?= $by_status[1] ?></div>
@@ -104,9 +107,7 @@ require '../includes/header.php';
         <div>ยกเลิก/ไม่ผ่าน</div>
     </div>
 </div>
-<!-- จบ ส่วนแสดงสถานะ -->
 
-<!-- ส่วนแสดงการอนุมัติฝ฿กงาน -->
 <div class="card card-table">
     <div class="card-header">
         <h2>
@@ -130,9 +131,7 @@ require '../includes/header.php';
             <?php endif; ?>
         </div>
     </div>
-    <!-- จบ ส่วนแสดงการอนุมัติฝ฿กงาน -->
 
-    <!-- การจัดการการอนุมัติ -->
     <?php if (!$recent): ?>
         <p class="muted">ยังไม่มีคำขอ</p>
     <?php else: ?>
@@ -143,7 +142,7 @@ require '../includes/header.php';
                     <th>นิสิต</th>
                     <th>บริษัท</th>
                     <th>ช่วง</th>
-                    <th>สถานะ</th>
+                    <th>อาจารย์</th> <th>สถานะ</th>
                     <th></th>
                 </tr>
             </thead>
@@ -154,7 +153,7 @@ require '../includes/header.php';
                     <td><?= h($r['student_code']) ?> <?= h($r['first_name'].' '.$r['last_name']) ?></td>
                     <td><?= h($r['company_name']) ?></td>
                     <td><?= h($r['start_date']) ?> → <?= h($r['end_date']) ?></td>
-                    <td>
+                    <td><?= h($r['t_fname'].' '.$r['t_lname']) ?></td> <td>
                       <span class="badge <?= h($c) ?>"><?= h($l) ?></span>
                     </td>
                     <td>
@@ -168,6 +167,5 @@ require '../includes/header.php';
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <!-- จบ  -->
     <?php endif; ?>
 </div>

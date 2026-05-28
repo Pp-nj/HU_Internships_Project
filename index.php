@@ -272,6 +272,147 @@
 
     </div>
 
+    <!-- ส่วนของประชาสัมพันธ์ -->
+     <div class="container pt-0 pb-5 mt-2">
+        
+        <div class="text-center mb-4">
+            <h1 class="fw-bold" style="color: #ff6600; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); font-size: 3rem;">ประชาสัมพันธ์ ปฏิทินกิจกรรม</h1>
+            <h3 class="fw-bold text-white py-2 px-4 rounded-pill d-inline-block shadow-sm" style="background-color: #ff6600;">ประจำปี 2569-2570 </h3>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
+                    <div class="position-relative">
+                        <div class="text-white text-center py-3" style="background-color: #e62e2d; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <h4 class="mb-0 fw-bold">กรกฎาคม</h4>
+                        </div>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-center p-3 p-xl-4">
+                        <h6 class="fw-bold mb-4 text-dark fs-5">กิจกรรมปฐมนิเทศนิสิตชั้นปีที่ 1</h6>
+                        <p class="mb-0 fw-bold mt-auto" style="color: #555; font-size: 0.9rem;">
+                            <i class="fas fa-map-marker-alt fs-5 me-1" style="color: #e62e2d;"></i>คณะมนุษยศาสตร์ มหาวิทยาลัยศรีนครินทรวิโรฒ
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
+                    <div class="position-relative">
+                        <div class="text-white text-center py-3" style="background-color: #e62e2d; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <h4 class="mb-0 fw-bold">กรกฎาคม</h4>
+                        </div>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-center p-3 p-xl-4">
+                        <h6 class="fw-bold mb-4 text-dark fs-5">โครงการปฐมนิเทศและกิจกรรมเสริมสร้างอัตลักษณ์นิสิต (ค่ายอัตลักษณ์) </h6>
+                        <p class="mb-0 fw-bold mt-auto" style="color: #555; font-size: 0.9rem;">
+                            <i class="fas fa-map-marker-alt fs-5 me-1" style="color: #e62e2d;"></i>มหาวิทยาลัยศรีนครินทรวิโรฒ องครักษ์
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
+                    <div class="position-relative">
+                        <div class="text-white text-center py-3" style="background-color: #e62e2d; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <h4 class="mb-0 fw-bold">สิงหาคม</h4>
+                        </div>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-center p-3 p-xl-4">
+                        <h6 class="fw-bold mb-4 text-dark fs-5">เปิดเทอมภาคเรียนที่ 1/2569</h6>
+                        <p class="mb-0 fw-bold mt-auto" style="color: #555; font-size: 0.9rem;">
+                            <i class="fas fa-map-marker-alt fs-5 me-1" style="color: #e62e2d;"></i>มหาวิทยาลัยศรีนครินทรวิโรฒ
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
+                    <div class="position-relative">
+                        <div class="text-white text-center py-3" style="background-color: #e62e2d; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <h4 class="mb-0 fw-bold">สิงหาคม</h4>
+                        </div>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-center p-3 p-xl-4">
+                        <h6 class="fw-bold mb-4 text-dark fs-5">กิจกรรมวันสถาปนา คณะมนุษยศาสตร์</h6>
+                        <p class="mb-0 fw-bold mt-auto" style="color: #555; font-size: 0.9rem;">
+                            <i class="fas fa-map-marker-alt fs-5 me-1" style="color: #e62e2d;"></i>ลานเทาแดง มหาวิทยาลัยศรีนครินทรวิโรฒ
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
+                    <div class="position-relative">
+                        <div class="text-white text-center py-3" style="background-color: #e62e2d; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <h4 class="mb-0 fw-bold">พฤษจิกายน</h4>
+                        </div>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-center p-3 p-xl-4">
+                        <h6 class="fw-bold mb-4 text-dark fs-5">งาน Open House 2026</h6>
+                        <p class="mb-0 fw-bold mt-auto" style="color: #555; font-size: 0.9rem;">
+                            <i class="fas fa-map-marker-alt fs-5 me-1" style="color: #e62e2d;"></i>มหาวิทยาลัยศรีนครินทรวิโรฒ
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
+                    <div class="position-relative">
+                        <div class="text-white text-center py-3" style="background-color: #e62e2d; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <h4 class="mb-0 fw-bold">กุมภาพันธ์ 2570</h4>
+                        </div>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-center p-3 p-xl-4">
+                        <h6 class="fw-bold mb-4 text-dark fs-5">กิจกรรม SWU GAME</h6>
+                        <p class="mb-0 fw-bold mt-auto" style="color: #555; font-size: 0.9rem;">
+                            <i class="fas fa-map-marker-alt fs-5 me-1" style="color: #e62e2d;"></i>มหาวิทยาลัยศรีนครินทรวิโรฒ องครักษ์
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
+                    <div class="position-relative">
+                        <div class="text-white text-center py-3" style="background-color: #e62e2d; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <h4 class="mb-0 fw-bold">กุมภาพันธ์ 2570</h4>
+                        </div>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-center p-3 p-xl-4">
+                        <h6 class="fw-bold mb-4 text-dark fs-5">IS DAY : โครงการสานสัมพันธ์สารสนเทศศึกษา</h6>
+                        <p class="mb-0 fw-bold mt-auto" style="color: #555; font-size: 0.9rem;">
+                            <i class="fas fa-map-marker-alt fs-5 me-1" style="color: #e62e2d;"></i>โรงยิมพละศึกษา
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 col-lg-3">
+                <div class="card h-100 border-0 shadow-sm" style="border-radius: 15px;">
+                    <div class="position-relative">
+                        <div class="text-white text-center py-3" style="background-color: #e62e2d; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+                            <h4 class="mb-0 fw-bold">เมษายน 2570</h4>
+                        </div>
+                    </div>
+                    <div class="card-body text-center d-flex flex-column justify-content-center p-3 p-xl-4">
+                        <h6 class="fw-bold mb-4 text-dark fs-5">HUnited Stars 2025</h6>
+                        <p class="mb-0 fw-bold mt-auto" style="color: #555; font-size: 0.9rem;">
+                            <i class="fas fa-map-marker-alt fs-5 me-1" style="color: #e62e2d;"></i>คณะมนุษยศาสตร์ มหาวิทยาลัยศรีนครินทรวิโรฒ
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- ดึงส่วนท้ายมาแสดง footer -->
     <?php include 'footer.php'; ?>
 

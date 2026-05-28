@@ -265,14 +265,14 @@ if ($res) {
                     <label class="reg-label">ชื่อจริง (First Name) <span class="text-danger">*</span></label>
                     <div class="custom-input">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input type="text" name="first_name" class="form-control" value="<?= h($old['first_name']) ?>" placeholder="ระบุชื่อจริง" required>
+                        <input type="text" name="first_name" class="form-control" value="<?= h($old['first_name']) ?>" placeholder="ระบุชื่อจริง(ภาษาไทย)" required>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <label class="reg-label">นามสกุล (Last Name) <span class="text-danger">*</span></label>
                     <div class="custom-input">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input type="text" name="last_name" class="form-control" value="<?= h($old['last_name']) ?>" placeholder="ระบุนามสกุล" required>
+                        <input type="text" name="last_name" class="form-control" value="<?= h($old['last_name']) ?>" placeholder="ระบุนามสกุล(ภาษาไทย)" required>
                     </div>
                 </div>
                 

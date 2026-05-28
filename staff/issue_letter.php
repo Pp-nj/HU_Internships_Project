@@ -259,9 +259,11 @@ require '../includes/header.php';
             <button class="btn" type="button" onclick="window.print()"><i class="fas fa-print me-1"></i> พิมพ์</button>
         </div>
     </form>
-    <?php else: ?>
+    <?php elseif ((int)$preview['status_id'] === 3): ?>
     <p class="muted">คำขอนี้ออกใบส่งตัวไปแล้ว</p>
-    <button class="btn" type="button" onclick="window.print()">พิมพ์</button>
+    <button class="btn" type="button" onclick="window.print()"><i class="fas fa-print me-1"></i> พิมพ์</button>
+    <?php else: ?>
+    <p class="muted">คำขอนี้ยังอยู่ระหว่างรอการอนุมัติ (ยังไม่สามารถออกใบส่งตัวหรือพิมพ์ได้)</p>
     <?php endif; ?>
 </div>
 <!-- จบการออกใบส่งตัว -->

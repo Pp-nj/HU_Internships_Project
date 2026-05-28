@@ -222,38 +222,54 @@ require '../includes/header.php';
 ?>
     <?php
     $current_status = (int)$detail['status_id'];
-    $s1 = $s2 = $s3 = $s4 = "";
+    $s1 = $s2 = $s3 = $s4 = $s5 = "";
 
+    // กำหนดเงื่อนไขตาม Status ID
     if ($current_status == 1) {
+        // รออนุมัติ
         $s1 = "active";
-    } elseif ($current_status == 2 || $current_status == 3) {
+    } elseif ($current_status == 2) {
+        // อนุมัติแล้ว
         $s1 = "completed";
         $s2 = "active";
-    } elseif ($current_status == 4) {
+    } elseif ($current_status == 3) {
+        // ออกใบส่งตัวแล้ว
         $s1 = "completed";
         $s2 = "completed";
-        $s3 = "completed"; 
+        $s3 = "active";
+    } elseif ($current_status == 4) {
+        // เสร็จสิ้น
+        $s1 = "completed";
+        $s2 = "completed";
+        $s3 = "completed";
+        $s4 = "active"; // หรือใช้ completed เพื่อให้เป็นสีเขียวทั้งหมด
     } else {
-        $s4 = "cancelled";
+        // ไม่ผ่าน/ยกเลิก (สถานะอื่นๆ เช่น 0 หรือ 5)
+        // กรณีที่ถูกยกเลิก อาจจะให้ step ก่อนหน้าหยุดอยู่แค่นั้น แล้วไป active ที่สถานะยกเลิกแทน
+        $s5 = "cancelled";
     }
     ?>
-    <!-- ส่วนกล่องแสดงผล -->
+    
     <div class="progress-tracker">
         <div class="progress-step <?= $s1 ?>">
             <div class="step-icon"><i class="fas fa-file-signature"></i></div>
             <div class="step-label">รออนุมัติ</div>
         </div>
         <div class="progress-step <?= $s2 ?>">
-            <div class="step-icon"><i class="fas fa-check-double"></i></div>
-            <div class="step-label">อนุมัติ/ออกใบ</div>
+            <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="step-label">อนุมัติแล้ว</div>
         </div>
         <div class="progress-step <?= $s3 ?>">
+            <div class="step-icon"><i class="fas fa-envelope-open-text"></i></div>
+            <div class="step-label">ออกใบส่งตัวแล้ว</div>
+        </div>
+        <div class="progress-step <?= $s4 ?>">
             <div class="step-icon"><i class="fas fa-graduation-cap"></i></div>
             <div class="step-label">เสร็จสิ้น</div>
         </div>
-        <div class="progress-step <?= $s4 ?>">
+        <div class="progress-step <?= $s5 ?>">
             <div class="step-icon">
-                <i class="<?= $s4 == 'cancelled' ? 'fas fa-times-circle' : 'fas fa-ban' ?>"></i>
+                <i class="<?= $s5 == 'cancelled' ? 'fas fa-times-circle' : 'fas fa-ban' ?>"></i>
             </div>
             <div class="step-label">ไม่ผ่าน/ยกเลิก</div>
         </div>

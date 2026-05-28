@@ -54,6 +54,9 @@ $current = basename($_SERVER['PHP_SELF']);
             <a href="supervision.php" class="<?= $current==='supervision.php'?'active':'' ?>">
               <i class="fas fa-clipboard-check me-1"></i> บันทึกนิเทศ
             </a>
+            <a href="all_requests.php" class="<?= $current==='all_requests.php'?'active':'' ?>">
+              <i class="fas fa-list me-1"></i> คำขอทั้งหมด
+            </a>
             <a href="reports.php" class="<?= $current==='reports.php'?'active':'' ?>">
               <i class="fas fa-chart-bar me-1"></i> รายงาน
             </a>
@@ -75,6 +78,9 @@ $current = basename($_SERVER['PHP_SELF']);
             </a>
             <a href="issue_letter.php" class="<?= $current==='issue_letter.php'?'active':'' ?>">
               <i class="fas fa-envelope-open-text me-1"></i> ใบส่งตัว
+            </a>
+            <a href="all_requests.php" class="<?= $current==='all_requests.php'?'active':'' ?>">
+              <i class="fas fa-list me-1"></i> คำขอทั้งหมด
             </a>
             <a href="supervision.php" class="<?= $current==='supervision.php'?'active':'' ?>">
               <i class="fas fa-clipboard-check me-1"></i> บันทึกนิเทศ
